@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Google Map Template with Marker at User's Position</title>
+
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap Core CSS - Uses Bootswatch Flatly Theme: http://bootswatch.com/flatly/ -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/freelancer.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+  <!--   <link href="css/style.css" rel="stylesheet" type="text/css" media="all" /> -->
+    <link href='http://fonts.googleapis.com/css?family=Rokkitt' rel='stylesheet' type='text/css'>
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>	<!-- Google Maps API -->
+	<script>
+
+	var map;	// Google map object
+	
+	// Initialize and display a google map
+	function Init()
+	{
+		//HTML5/W3C Geolocation
+		// if ( navigator.geolocation )
+	//		navigator.geolocation.getCurrentPosition( UserLocation );
+		// ShowLocation(UserLocation);
+		// // Default to Washington, DC
+		// else
+			//ShowLocation( 28.5514034, 77.25176710000005, "Nehru Place Metro Station Centre" );
+          ShowLocation( 28.5705995, 77.23635869999998, "Lajpat Nagar Metro Station Centre" );
+            ShowLocation( 28.62589909999999, 77.23429569999996, "Mandi House Metro Station Centre" );
+            ShowLocation(28.54702579552585,77.27370988735831,"Boys Hostel");
+            ShowLocation(28.54689328860768,77.2732458872289,"Girls Hostel");
+            ShowLocation(28.54424355903056,77.2707583738157,"Faculty Building");
+            ShowLocation(28.54602825172096,77.27318000646557,"Canteen");
+            ShowLocation(28.54462871986238,77.27240394550925,"Academic Building");
+	}
+	
+	function report(period)
+	{
+		// HTML5/W3C Geolocation
+		// if ( navigator.geolocation )
+		 	//navigator.geolocation.getCurrentPosition( UserLocation );
+		 // Default to Washington, DC
+		// else
+				if(period == "Nehru Place Metro Station Centre")
+					ShowLocation( 28.5514034, 77.25176710000005, "Nehru Place Metro Station Centre" );
+				else if(period == "Lajpat Nagar Metro Station Centre")
+				ShowLocation( 28.5705995, 77.23635869999998, "Lajpat Nagar Metro Station Centre" );
+				else if(period == "Mandi House Metro Station Centre")
+				ShowLocation( 28.62589909999999, 77.23429569999996, "Mandi House Metro Station Centre" );
+				else if(period == "Boys Hostel")
+				ShowLocation(28.54702579552585,77.27370988735831,"Boys Hostel");
+				else if(period == "Girls Hostel")
+				ShowLocation(28.54689328860768,77.2732458872289,"Girls Hostel");
+				else if(period == "Academic Building")
+				ShowLocation(28.54462871986238,77.27240394550925,"Academic Building");
+				else if(period == "Faculty Building")
+				ShowLocation(28.54424355903056,77.2707583738157,"Faculty Building");
+				else if(period == "Canteen")
+				ShowLocation(28.54602825172096,77.27318000646557,"Canteen");
+	}
+	
+	// Callback function for asynchronous call to HTML5 geolocation
+	function UserLocation( position )
+	{
+		ShowLocation( position.coords.latitude, position.coords.longitude, "This is your Location" );
+	}
+	
+	// Display a map centered at the specified coordinate with a marker and InfoWindow.
+	function ShowLocation( lat, lng, title )
+	{
+		// Create a Google coordinate object for where to center the map
+		var latlng = new google.maps.LatLng( lat, lng );	
+		
+		// Map options for how to display the Google map
+		var mapOptions = { zoom: 12, center: latlng  };
+		
+		// Show the Google map in the div with the attribute id 'map-canvas'.
+		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+		
+		// Place a Google Marker at the same location as the map center 
+		// When you hover over the marker, it will display the title
+		var marker = new google.maps.Marker( { 
+			position: latlng,     
+			map: map,      
+			title: title
+		});
+		
+		// Create an InfoWindow for the marker
+		var contentString = "<b>" + title + "</b>";	// HTML text to display in the InfoWindow
+		var infowindow = new google.maps.InfoWindow( { content: contentString } );
+		
+		// Set event to display the InfoWindow anchored to the marker when the marker is clicked.
+		google.maps.event.addListener( marker, 'click', function() { infowindow.open( map, marker ); });
+	}
+	
+	// Call the method 'Init()' to display the google map when the web page is displayed ( load event )
+	google.maps.event.addDomListener( window, 'load', Init );
+
+	</script>
+	<style>
+	/* style settings for Google map */
+	#map-canvas
+	{
+		width : 1520px; 	/* map width */
+		height: 700px;	/* map height */
+	}
+	</style>
+
+    <style>
+    .demo select {
+        border: 0 !important;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: #0088cc url(img/dda1.png) no-repeat 95% center;
+        width: 400px;
+        margin-left: 250px;
+        margin-top: 17px;
+        text-indent: 0.01px;
+        text-overflow: "";
+        color: #FFF;
+        border-radius: 15px;
+        padding: 5px;
+        box-shadow: inset 0 0 5px rgba(000,000,000, 0.5);
+        border-radius: 10px 0;
+    }
+    </style>
+</head>
+
+<body id="page-top" class="index">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#page-top">Zyklus</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="demo">
+                        <select onchange="report(this.value)">                                
+                                <option value="Lajpat Nagar Metro Station Centre">Lajpat Nagar Metro Station</option>
+                                <option value="Mandi House Metro Station Centre">Mandi House Metro Station</option>
+                                <option value="Nehru Place Metro Station Centre">Nehru Place Metro Station</option>
+                                <option value="Boys Hostel">Boys Hostel</option>
+                                <option value="Girls Hostel">Girls Hostel</option>
+                                <option value="Academic Building">Academic Building</option>
+                                <option value="Canteen">Canteen</option>
+                                <option value="Faculty Building">Faculty Building</option>
+                              
+                        </select>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="index.html">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+	<!-- Dislay Google map here -->
+	<div id='map-canvas' ></div>
+
+    <div class="container">
+            <center>
+            <div class="btn-group btn-lg" style="padding:10px 10px 10px 10px">
+            <a href=" http://www.greenalp.com/RealtimeTracker/index.php?viewuser=gautam1996 "><button type="button" class="btn btn-danger" style="margin-right:5px; padding: 10px 30px;">Rent a Cycle</button></a> 
+            <a href="last.html"><button type="button" class="btn btn-info" style="margin-left:5px; padding: 10px 30px;">Donate a Cycle</button></a>
+            
+            </div>
+            
+            </center>
+   
+      
+       </div>
+
+	<!-- Footer -->
+    <footer class="text-center">
+        <div class="footer-above">
+            <div class="container">
+                <div class="row">
+                    <div class="footer-col col-md-4">
+                        <h3>Head Office</h3>
+                        <p>Boys Hostel, IIIT Delhi</p>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>Around the Web</h3>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-google-plus"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-linkedin"></i></a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-social btn-outline"><i class="fa fa-fw fa-dribbble"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="footer-col col-md-4">
+                        <h3>About Zyklus</h3>
+                        <p>Zyklus is a free to use app created by The Best EVS group.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-below">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        Copyright &copy; Our Website 2016
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/cbpAnimatedHeader.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/freelancer.js"></script>
+    
+</body>
+</html>
